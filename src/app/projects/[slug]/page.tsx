@@ -15,6 +15,7 @@ import { person } from "../../resources/content";
 import { formatDate } from "../../utils/formatDate";
 import ScrollToHash from "@/components/ScrollToHash";
 
+// ✅ generateStaticParams stays the same
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "projects", "projects"]);
   return posts.map((post) => ({
@@ -22,9 +23,8 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }));
 }
 
-// ✅ Await the props object directly (used for streaming dynamic routes)
-export async function generateMetadata(props: Promise<{ params: { slug: string } }>) {
-  const { params } = await props;
+// ✅ This can still be async, but props should be typed as an object
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const posts = getPosts(["src", "app", "projects", "projects"]);
   const post = posts.find((p) => p.slug === params.slug);
 
@@ -61,9 +61,8 @@ export async function generateMetadata(props: Promise<{ params: { slug: string }
   };
 }
 
-// ✅ Await props here too
-export default async function Project(props: Promise<{ params: { slug: string } }>) {
-  const { params } = await props;
+// ✅ Main page component: async allowed, props is plain object
+export default async function Project({ params }: { params: { slug: string } }) {
   const posts = getPosts(["src", "app", "projects", "projects"]);
   const post = posts.find((p) => p.slug === params.slug);
 
