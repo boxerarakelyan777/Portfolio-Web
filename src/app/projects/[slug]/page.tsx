@@ -15,7 +15,11 @@ import { person } from "../../resources/content";
 import { formatDate } from "../../utils/formatDate";
 import ScrollToHash from "@/components/ScrollToHash";
 
-// ✅ generateStaticParams stays the same
+type Props = {
+  params: { slug: string };
+};
+
+// Generate static params for SSG
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "projects", "projects"]);
   return posts.map((post) => ({
@@ -23,8 +27,8 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }));
 }
 
-// ✅ This can still be async, but props should be typed as an object
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+// Generate metadata for each project page
+export async function generateMetadata({ params }: Props) {
   const posts = getPosts(["src", "app", "projects", "projects"]);
   const post = posts.find((p) => p.slug === params.slug);
 
@@ -61,16 +65,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// ✅ Main page component: async allowed, props is plain object
-export default async function Project({ params }: { params: { slug: string } }) {
+// Main page component
+export default async function Project({ params }: Props) {
   const posts = getPosts(["src", "app", "projects", "projects"]);
   const post = posts.find((p) => p.slug === params.slug);
 
   if (!post) notFound();
 
   const avatars =
-    post.metadata.team?.map((person) => ({
-      src: person.avatar,
+    post.metadata.team?.map((member) => ({
+      src: member.avatar,
     })) || [];
 
   return (
@@ -88,7 +92,9 @@ export default async function Project({ params }: { params: { slug: string } }) 
             description: post.metadata.summary,
             image: post.metadata.image
               ? `https://${baseURL}${post.metadata.image}`
-              : `https://${baseURL}/og?title=${encodeURIComponent(post.metadata.title)}`,
+              : `https://${baseURL}/og?title=${encodeURIComponent(
+                  post.metadata.title
+                )}`,
             url: `https://${baseURL}/projects/${post.slug}`,
             author: {
               "@type": "Person",
