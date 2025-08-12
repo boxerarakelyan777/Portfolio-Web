@@ -249,4 +249,4 @@ const projects = {
 };
 
 
-export { person, social, home, about, projects, technical};
+export { person, social, home, about, projects};
