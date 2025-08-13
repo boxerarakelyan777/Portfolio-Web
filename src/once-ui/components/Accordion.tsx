@@ -3,6 +3,7 @@
 import React, { useState, forwardRef, useImperativeHandle, useEffect, useCallback } from "react";
 import { Flex, Icon, Text, Column, Grid } from ".";
 import styles from "./Accordion.module.scss";
+import { IconName } from "../icons";
 
 export interface AccordionHandle extends HTMLDivElement {
   toggle: () => void;
@@ -83,7 +84,7 @@ const Accordion = forwardRef<AccordionHandle, AccordionProps>(
         >
           <Text variant="heading-strong-s">{title}</Text>
           <Icon
-            name={icon}
+            name={icon as IconName}
             size={size === "s" ? "xs" : "s"}
             onBackground={isOpen ? "neutral-strong" : "neutral-weak"}
             style={{
