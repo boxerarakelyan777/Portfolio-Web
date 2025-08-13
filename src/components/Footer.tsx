@@ -1,6 +1,7 @@
 import { Flex, IconButton, SmartLink, Text } from "@/once-ui/components";
 import { person, social } from "../app/resources/content";
 import styles from "./Footer.module.scss";
+import { IconName } from "@/once-ui/icons";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -34,7 +35,7 @@ export const Footer = () => {
                 <IconButton
                   key={item.name}
                   href={item.link}
-                  icon={item.icon}
+                  icon={item.icon as IconName}
                   tooltip={item.name}
                   size="s"
                   variant="ghost"
