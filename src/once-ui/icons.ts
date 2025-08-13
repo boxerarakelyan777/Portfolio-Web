@@ -23,6 +23,7 @@ import {
   HiArrowRight,
   HiOutlineEye,
   HiOutlineEyeSlash,
+  HiOutlineDocumentText, // added for document icon
 } from "react-icons/hi2";
 
 import {
@@ -35,7 +36,7 @@ import {
 
 import { FaDiscord, FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
-export const iconLibrary: Record<string, IconType> = {
+export const iconLibrary = {
   chevronUp: HiChevronUp,
   chevronDown: HiChevronDown,
   chevronRight: HiChevronRight,
@@ -67,4 +68,9 @@ export const iconLibrary: Record<string, IconType> = {
   x: FaXTwitter,
   clipboard: HiClipboard,
   arrowUpRightFromSquare: HiArrowTopRightOnSquare,
-};
+  documentText: HiOutlineDocumentText, // new icon key
+} as const;
+
+export type IconName = keyof typeof iconLibrary;
+
+export const icons: Record<IconName, IconType> = iconLibrary;
