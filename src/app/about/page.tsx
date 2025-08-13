@@ -16,6 +16,7 @@ import {
   import { person, about, social } from "../resources/content";
 import React from "react";
 import { JSX } from "react";
+import type { IconName } from "../../once-ui/icons";
   
   export async function generateMetadata() {
     const title = about.title;
@@ -163,7 +164,7 @@ import { JSX } from "react";
                         <Button
                             className="s-flex-hide"
                             href={item.link}
-                            prefixIcon={item.icon}
+                            prefixIcon={item.icon as IconName}
                             label={item.name}
                             size="s"
                             variant="secondary"
@@ -172,7 +173,7 @@ import { JSX } from "react";
                             className="s-flex-show"
                             size="l"
                             href={item.link}
-                            icon={item.icon}
+                            icon={item.icon as IconName}     
                             variant="secondary"
                         />
                         </React.Fragment>
