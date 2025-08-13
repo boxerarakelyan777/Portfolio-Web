@@ -102,8 +102,7 @@ const about = {
           <>Gained weekly mentorship from engineers at Google, Meta, and Amazon by presenting app demos and receiving feedback</>,
         ],
         images: [
-          // optional: leave the array empty if you don't want to display images
-          {},
+
         ],
       },
       {

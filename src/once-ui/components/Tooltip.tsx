@@ -4,12 +4,11 @@ import React, { forwardRef, ReactNode } from "react";
 import classNames from "classnames";
 
 import { Flex, Icon } from ".";
-import { IconName } from "../icons";
 
 type TooltipProps = {
   label: ReactNode;
-  prefixIcon?: IconName;
-  suffixIcon?: IconName;
+  prefixIcon?: string;
+  suffixIcon?: string;
   className?: string;
   style?: React.CSSProperties;
 };
@@ -48,7 +47,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
         {suffixIcon && <Icon name={suffixIcon} size="xs" />}
       </Flex>
     );
-  }
+  },
 );
 
 Tooltip.displayName = "Tooltip";

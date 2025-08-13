@@ -16,7 +16,6 @@ export interface OptionProps {
   highlighted?: boolean;
   tabIndex?: number;
   onClick?: (value: string) => void;
-  onLinkClick?: () => void;
 }
 
 const Option = forwardRef<HTMLDivElement, OptionProps>(
@@ -33,7 +32,6 @@ const Option = forwardRef<HTMLDivElement, OptionProps>(
       highlighted,
       tabIndex,
       onClick,
-      onLinkClick,
       ...props
     },
     ref,
@@ -47,8 +45,8 @@ const Option = forwardRef<HTMLDivElement, OptionProps>(
         tabIndex={tabIndex}
         ref={ref}
         href={href}
-        className="reset-button-styles fill-width"
-        onLinkClick={onLinkClick}
+        className="reset-button-styles"
+        style={{ width: "100%" }}
       >
         <Flex
           {...props}

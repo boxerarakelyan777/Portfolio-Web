@@ -71,7 +71,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         step={step}
         hasSuffix={
           <>
-            <Flex position="static" minWidth={1.25}></Flex>
+            <Flex minWidth={1.25}></Flex>
             <Flex
               position="absolute"
               right="0"
@@ -83,7 +83,6 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
             >
               <Flex
                 fillHeight
-                position="static"
                 borderBottom="neutral-medium"
                 paddingX="4"
                 className={classNames(styles.stepper, "transition-micro-medium")}
@@ -98,7 +97,6 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
               </Flex>
               <Flex
                 fillHeight
-                position="static"
                 paddingX="4"
                 className={classNames(styles.stepper, "transition-micro-medium")}
               >

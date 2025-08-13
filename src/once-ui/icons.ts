@@ -23,7 +23,6 @@ import {
   HiArrowRight,
   HiOutlineEye,
   HiOutlineEyeSlash,
-  HiOutlineDocumentText,
 } from "react-icons/hi2";
 
 import {
@@ -36,8 +35,7 @@ import {
 
 import { FaDiscord, FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
-// Use `as const` + `satisfies` to preserve literal keys AND ensure all values are IconType
-export const iconLibrary = {
+export const iconLibrary: Record<string, IconType> = {
   chevronUp: HiChevronUp,
   chevronDown: HiChevronDown,
   chevronRight: HiChevronRight,
@@ -69,11 +67,4 @@ export const iconLibrary = {
   x: FaXTwitter,
   clipboard: HiClipboard,
   arrowUpRightFromSquare: HiArrowTopRightOnSquare,
-  // nicer alias for the doc icon:
-  documentText: HiOutlineDocumentText,
-  // keep the original key too (for backward-compat)
-  HiOutlineDocumentText,
-} as const satisfies Record<string, IconType>;
-
-// ✅ Export a strong name union like "chevronUp" | "chevronDown" | ...
-export type IconName = keyof typeof iconLibrary;
+};

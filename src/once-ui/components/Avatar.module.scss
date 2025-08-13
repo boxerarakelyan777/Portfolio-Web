@@ -46,6 +46,7 @@
 
 .indicator {
     box-sizing: content-box;
+    position: absolute;
     bottom: 0;
     right: 0;
     transform: translateX(var(--static-space-2)) translateY(var(--static-space-2));

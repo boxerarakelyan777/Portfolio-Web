@@ -12,7 +12,7 @@ interface MaskOptions {
 
 interface HoloFxProps extends React.ComponentProps<typeof Flex> {
   children: React.ReactNode;
-  shine?: {
+  light?: {
     opacity?: number;
     filter?: string;
     blending?: CSSProperties["mixBlendMode"];
@@ -44,15 +44,15 @@ const getMaskStyle = (mask?: MaskOptions): string => {
   return mask?.maskPosition ? formatMask(mask.maskPosition) : formatMask();
 };
 
-const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest }) => {
+const HoloFx: React.FC<HoloFxProps> = ({ children, light, burn, texture, ...rest }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const lastCallRef = useRef<number>(0);
+  let lastCall = 0;
 
-  const shineDefaults = {
+  const lightDefaults = {
     opacity: 30,
     blending: "color-dodge" as CSSProperties["mixBlendMode"],
-    mask: getMaskStyle(shine?.mask),
-    ...shine,
+    mask: getMaskStyle(light?.mask),
+    ...light,
   };
 
   const burnDefaults = {
@@ -75,8 +75,8 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const now = Date.now();
-      if (now - lastCallRef.current < 16) return;
-      lastCallRef.current = now;
+      if (now - lastCall < 16) return;
+      lastCall = now;
 
       const element = ref.current;
       if (!element) return;
@@ -103,7 +103,7 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
   }, []);
 
   return (
-    <Flex overflow="hidden" className={styles.holoFx} ref={ref} {...rest}>
+    <Flex position="relative" overflow="hidden" className={styles.holoFx} ref={ref} {...rest}>
       <Flex fill className={styles.base}>
         {children}
       </Flex>
@@ -127,12 +127,12 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
         position="absolute"
         fill
         pointerEvents="none"
-        className={classNames(styles.overlay, styles.shine)}
+        className={classNames(styles.overlay, styles.light)}
         style={{
-          ["--shine-opacity" as any]: shineDefaults.opacity + "%",
-          filter: shineDefaults.filter,
-          mixBlendMode: shineDefaults.blending,
-          maskImage: shineDefaults.mask as string,
+          ["--light-opacity" as any]: lightDefaults.opacity + "%",
+          filter: lightDefaults.filter,
+          mixBlendMode: lightDefaults.blending,
+          maskImage: lightDefaults.mask as string,
         }}
       >
         {children}

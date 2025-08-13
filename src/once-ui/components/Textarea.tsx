@@ -143,6 +143,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     return (
       <Flex
+        position="relative"
         direction="column"
         gap="8"
         fillWidth
@@ -156,6 +157,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           transition="micro-medium"
           border="neutral-medium"
           background="neutral-alpha-weak"
+          position="relative"
           overflow="hidden"
           vertical="stretch"
           className={classNames(
@@ -169,7 +171,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               {hasPrefix}
             </Flex>
           )}
-          <Flex fillWidth direction="column">
+          <Flex fillWidth direction="column" position="relative">
             <textarea
               {...props}
               ref={(node) => {
@@ -178,7 +180,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 } else if (ref) {
                   ref.current = node;
                 }
-                // @ts-ignore
+                //@ts-ignore
                 textareaRef.current = node;
               }}
               id={id}
