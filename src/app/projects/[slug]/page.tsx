@@ -16,21 +16,21 @@ import { formatDate } from "../../utils/formatDate";
 import ScrollToHash from "@/components/ScrollToHash";
 
 type Props = {
-  params: { slug: string };
+  // Next 15: params is a Promise (streaming props)
+  params: Promise<{ slug: string }>;
 };
 
 // Generate static params for SSG
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "projects", "projects"]);
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
-// Generate metadata for each project page
+// Generate metadata per page
 export async function generateMetadata({ params }: Props) {
+  const { slug } = await params; // ✅ await the promised params
   const posts = getPosts(["src", "app", "projects", "projects"]);
-  const post = posts.find((p) => p.slug === params.slug);
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) return;
 
@@ -67,15 +67,14 @@ export async function generateMetadata({ params }: Props) {
 
 // Main page component
 export default async function Project({ params }: Props) {
+  const { slug } = await params; // ✅ await the promised params
   const posts = getPosts(["src", "app", "projects", "projects"]);
-  const post = posts.find((p) => p.slug === params.slug);
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) notFound();
 
   const avatars =
-    post.metadata.team?.map((member) => ({
-      src: member.avatar,
-    })) || [];
+    post.metadata.team?.map((member) => ({ src: member.avatar })) ?? [];
 
   return (
     <Column as="section" maxWidth="m" horizontal="center" gap="l">
@@ -96,10 +95,7 @@ export default async function Project({ params }: Props) {
                   post.metadata.title
                 )}`,
             url: `https://${baseURL}/projects/${post.slug}`,
-            author: {
-              "@type": "Person",
-              name: person.name,
-            },
+            author: { "@type": "Person", name: person.name },
           }),
         }}
       />
