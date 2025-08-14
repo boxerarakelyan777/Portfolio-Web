@@ -42,7 +42,7 @@ const ColorInput = forwardRef<HTMLInputElement, ColorInputProps>(
                 opacity: value ? "0" : "1",
                 transition: "0.2s ease-in-out all",
               }}
-            >
+            > 
               <Flex padding="2">
                 <Icon size="xs" name="eyeDropper" onBackground="neutral-medium" />
               </Flex>

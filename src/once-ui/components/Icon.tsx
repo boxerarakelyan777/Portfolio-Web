@@ -1,18 +1,28 @@
+// Icon.tsx
 "use client";
 
 import React, { forwardRef, useEffect, useState, ReactNode } from "react";
 import classNames from "classnames";
 import type { IconType } from "react-icons";
-import { iconLibrary } from "../icons"; // IconName is exported there too
+import { iconLibrary } from "../icons"; // your icons.ts file
 import { ColorScheme, ColorWeight } from "../types";
 import { Flex, Tooltip } from ".";
 import styles from "./Icon.module.scss";
 import iconStyles from "./IconButton.module.scss";
 
-export type IconName = keyof typeof iconLibrary;
+// Use a single source of truth for IconName.
+// If icons.ts already exports IconName, import it instead of redeclaring.
+// import type { IconName } from "../icons";
+type IconName = keyof typeof iconLibrary;
+
+// ✅ helper: runtime type guard so we can accept string and still render safely
+function isIconName(value: string): value is IconName {
+  return value in iconLibrary;
+}
 
 interface IconProps extends React.ComponentProps<typeof Flex> {
-  name: IconName;
+  // 👇 accept loose strings so all existing callers compile
+  name: IconName | string;
   onBackground?: `${ColorScheme}-${ColorWeight}`;
   onSolid?: `${ColorScheme}-${ColorWeight}`;
   size?: "xs" | "s" | "m" | "l" | "xl";
@@ -22,42 +32,24 @@ interface IconProps extends React.ComponentProps<typeof Flex> {
 }
 
 const Icon = forwardRef<HTMLDivElement, IconProps>(function Icon(
-  {
-    name,
-    onBackground,
-    onSolid,
-    size = "m",
-    decorative = true,
-    tooltip,
-    tooltipPosition = "top",
-    ...rest
-  },
+  { name, onBackground, onSolid, size = "m", decorative = true, tooltip, tooltipPosition = "top", ...rest },
   ref
 ) {
-  // ✅ Hooks: always called, never behind a condition
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | undefined;
-    if (isHover) {
-      timer = setTimeout(() => setTooltipVisible(true), 400);
-    } else {
-      setTooltipVisible(false);
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
+    if (isHover) timer = setTimeout(() => setTooltipVisible(true), 400);
+    else setTooltipVisible(false);
+    return () => timer && clearTimeout(timer);
   }, [isHover]);
 
-  const IconComponent: IconType | undefined = iconLibrary[name];
+  // 👇 narrow the string to a valid key at runtime
+  const key: IconName | undefined = typeof name === "string" && isIconName(name) ? name : undefined;
 
-  // Warn but do not branch hooks
   if (onBackground && onSolid) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Icon: both 'onBackground' and 'onSolid' provided; 'onBackground' takes precedence."
-    );
+    console.warn("Icon: both 'onBackground' and 'onSolid' provided; 'onBackground' takes precedence.");
   }
 
   let colorClass = "color-inherit";
@@ -69,12 +61,12 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(function Icon(
     colorClass = `${scheme}-on-solid-${weight}`;
   }
 
-  // Rendering decision happens AFTER hooks are declared
-  if (!IconComponent) {
-    // eslint-disable-next-line no-console
-    console.warn(`Icon "${name}" is not registered in iconLibrary.`);
+  if (!key) {
+    console.warn(`Icon: "${name}" is not registered in iconLibrary.`);
     return null;
   }
+
+  const IconComponent: IconType = iconLibrary[key];
 
   return (
     <Flex
@@ -84,7 +76,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(function Icon(
       ref={ref}
       className={classNames(colorClass, styles.icon, styles[size])}
       aria-hidden={decorative ? "true" : undefined}
-      aria-label={decorative ? undefined : name}
+      aria-label={decorative ? undefined : key}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       {...rest}
@@ -101,3 +93,4 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(function Icon(
 
 Icon.displayName = "Icon";
 export { Icon };
+export type { IconName };
