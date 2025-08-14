@@ -49,7 +49,7 @@ const about = {
   label: "About",
   title: "About me",
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
-  tableOfContent: {
+  tableOfContents: {
     display: true,
     subItems: false,
   },
