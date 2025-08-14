@@ -16,6 +16,7 @@ import styles from "@/components/about/about.module.scss";
 import { person, about, social } from "../resources/content";
 import React, { JSX } from "react";
 import type { IconName } from "@/once-ui/icons";
+const resumeHref = '/RudikArakelyanSWEResume.pdf';
 
 type Img = { width: number; height: number; src: string; alt?: string };
 
@@ -138,7 +139,7 @@ export default function About() {
               <Icon paddingLeft="12" name="clipboard" onBackground="brand-weak" />
               <Flex paddingX="8">Check out my resume</Flex>
               <IconButton
-                href="/resume.pdf"
+                href={resumeHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-border="rounded"
