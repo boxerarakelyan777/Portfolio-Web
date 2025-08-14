@@ -1,5 +1,5 @@
 import { getPosts } from "@/app/utils/utils";
-import { Column } from "@/once-ui/components";
+import { Column, Heading, Text } from "@/once-ui/components";
 import { Projects } from "@/components/projects/Projects";
 import { baseURL } from "@/app/resources";
 import { person, projects } from "@/app/resources/content";
@@ -36,8 +36,8 @@ export async function generateMetadata() {
 export default function Project() {
   let allProjects = getPosts(["src", "app", "projects", "projects"]);
 
-  return (
-    <Column maxWidth="m">
+   return (
+    <Column maxWidth="m" gap="xl">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -63,6 +63,14 @@ export default function Project() {
           }),
         }}
       />
+      <Column paddingX="l" gap="s" marginBottom="40">
+        <Heading as="h1" variant="display-strong-m">
+          {projects.title}
+        </Heading>
+        <Text onBackground="neutral-weak" variant="body-default-xl">
+          {projects.description}
+        </Text>
+      </Column>
       <Projects />
     </Column>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { getPosts } from "../../app/utils/utils";
 import { Column } from "../../once-ui/components";
+import { Grid } from "../../once-ui/components";
 import type { SpacingToken } from "../../once-ui/types";
 import { ProjectCard } from "../ProjectCard";
 
@@ -21,7 +22,14 @@ export function Projects({ range, marginBottom = "40" }: ProjectsProps) {
     : sortedProjects;
 
   return (
-    <Column fillWidth gap="xl" marginBottom={marginBottom} paddingX="l">
+    <Grid
+      columns={2}
+      tabletColumns={1}
+      fillWidth
+      gap="xl"
+      marginBottom={marginBottom}
+      paddingX="l"
+    >
       {displayedProjects.map((post, index) => (
         <ProjectCard
           priority={index < 2}
@@ -35,6 +43,6 @@ export function Projects({ range, marginBottom = "40" }: ProjectsProps) {
           link={post.metadata.link || ""}
         />
       ))}
-    </Column>
+    </Grid>
   );
 }
