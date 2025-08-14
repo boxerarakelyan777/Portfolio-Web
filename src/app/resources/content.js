@@ -181,7 +181,7 @@ const projects = {
   label: "Projects",
   title: "My projects",
   description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/blog/posts
+  // Create new project pages by adding a new .mdx file to app/project/posts
   // All projects will be listed on the /home and /projects routes
 };
 
