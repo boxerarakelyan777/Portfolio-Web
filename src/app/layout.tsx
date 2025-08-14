@@ -11,14 +11,21 @@ import { baseURL, style, effects } from "../app/resources";
 import { Background, Column, Flex, ToastProvider } from "../once-ui/components";
 
 import { person, home } from "../app/resources/content";
-import { Geist } from "next/font/google";
+// import { Geist } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import React from "react";
  
 
 const code = Geist_Mono({
   variable: "--font-code",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const altone = localFont({
+  src: "../../public/fonts/Altone-VF.ttf",
+  variable: "--font-primary",
   display: "swap",
 });
 
@@ -85,7 +92,7 @@ export default function RootLayout({
       data-transition={style.transition}
       data-scaling={style.scaling}
       className={classNames(
-        
+        altone.variable,
         code.variable,
         secondary ? secondary.variable : "",
         tertiary ? tertiary.variable : "",
