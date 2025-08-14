@@ -54,6 +54,31 @@ export default function About() {
   const latestProjectTitle = "Latest project";
   const previewCategories = skillCategories.slice(0, 3);
   const sectionSpacing = "64";
+  const Section = ({
+    id,
+    title,
+    children,
+  }: {
+    id?: string;
+    title?: string;
+    children: React.ReactNode;
+  }) => (
+    <Column
+      id={id}
+      fillWidth
+      paddingTop={sectionSpacing}
+      paddingBottom={sectionSpacing}
+      gap="l"
+      borderTop="neutral-alpha-medium"
+    >
+      {title && (
+        <Heading as="h2" variant="display-strong-s">
+          {title}
+        </Heading>
+      )}
+      {children}
+    </Column>
+  );
   const structure = [
     {
       title: about.intro.title,
@@ -203,165 +228,152 @@ export default function About() {
           </Column>
 
           {about.intro.display && (
-            <Column
-              textVariant="body-default-l"
-              fillWidth
-              gap="l"
-              marginBottom={sectionSpacing}
-            >
-              {about.intro.description}
-            </Column>
+            <Section>
+              <Column textVariant="body-default-l" fillWidth gap="l">
+                {about.intro.description}
+              </Column>
+            </Section>
           )}
 
           {about.work.display && (
-            <>
-              <Heading
-                as="h2"
-                id={about.work.title}
-                variant="display-strong-s"
-                marginTop={sectionSpacing}
-                marginBottom="m"
-              >
-                {about.work.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom={sectionSpacing}>
-                {about.work.experiences.map((experience, index) => (
-                  <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
-                    <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
-                      </Text>
-                      <Text variant="heading-default-xs" onBackground="neutral-weak">
-                        {experience.timeframe}
-                      </Text>
-                    </Flex>
-                    <Text variant="body-default-s" onBackground="brand-weak" marginBottom="m">
-                      {experience.role}
+            <Section id={about.work.title} title={about.work.title}>
+              {about.work.experiences.map((experience, index) => (
+                <Column
+                  key={`${experience.company}-${experience.role}-${index}`}
+                  fillWidth
+                  gap="m"
+                  paddingBottom="l"
+                  borderBottom={
+                    index < about.work.experiences.length - 1
+                      ? "neutral-alpha-medium"
+                      : undefined
+                  }
+                >
+                  <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
+                    <Text id={experience.company} variant="heading-strong-l">
+                      {experience.company}
                     </Text>
-                    <Column as="ul" gap="16">
-                      {experience.achievements.map((achievement: JSX.Element, index: number) => (
-                        <Text
-                          as="li"
-                          variant="body-default-m"
-                          key={`${experience.company}-${index}`}
-                        >
-                          {achievement}
-                        </Text>
-                      ))}
-                    </Column>
-                    {Array.isArray(experience.images) && experience.images.length > 0 && (
-                      <Flex fillWidth paddingTop="m" paddingLeft="40" wrap>
-                        {(experience.images as Img[]).map((image, index) => (
-                          <Flex
-                            key={index}
-                            border="neutral-medium"
-                            radius="m"
-                            minWidth={image.width}
-                            height={image.height}
-                          >
-                            <SmartImage
-                              enlarge
-                              radius="m"
-                              sizes={String(image.width)}
-                              alt={image.alt ?? ""}
-                              src={image.src}
-                            />
-                          </Flex>
-                        ))}
-                      </Flex>
-                    )}
+                    <Text variant="heading-default-xs" onBackground="neutral-weak">
+                      {experience.timeframe}
+                    </Text>
+                  </Flex>
+                  <Text variant="body-default-s" onBackground="brand-weak" marginBottom="m">
+                    {experience.role}
+                  </Text>
+                  <Column as="ul" gap="m">
+                    {experience.achievements.map((achievement: JSX.Element, index: number) => (
+                      <Text
+                        as="li"
+                        variant="body-default-m"
+                        key={`${experience.company}-${index}`}
+                      >
+                        {achievement}
+                      </Text>
+                    ))}
                   </Column>
-                ))}
-              </Column>
-            </>
+                  {Array.isArray(experience.images) && experience.images.length > 0 && (
+                    <Flex fillWidth paddingTop="m" paddingLeft="40" wrap>
+                      {(experience.images as Img[]).map((image, index) => (
+                        <Flex
+                          key={index}
+                          border="neutral-medium"
+                          radius="m"
+                          minWidth={image.width}
+                          height={image.height}
+                        >
+                          <SmartImage
+                            enlarge
+                            radius="m"
+                            sizes={String(image.width)}
+                            alt={image.alt ?? ""}
+                            src={image.src}
+                          />
+                        </Flex>
+                      ))}
+                    </Flex>
+                  )}
+                </Column>
+              ))}
+            </Section>
           )}
 
           {about.studies.display && (
-            <>
-              <Heading
-                as="h2"
-                id={about.studies.title}
-                variant="display-strong-s"
-                marginTop={sectionSpacing}
-                marginBottom="m"
-              >
-                {about.studies.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom={sectionSpacing}>
-                {about.studies.institutions.map((institution, index) => (
-                  <Column key={`${institution.name}-${index}`} fillWidth gap="4">
-                    <Text id={institution.name} variant="heading-strong-l">
-                      {institution.name}
-                    </Text>
-                    <Text variant="heading-default-xs" onBackground="neutral-weak">
-                      {institution.description}
-                    </Text>
-                  </Column>
-                ))}
-              </Column>
-            </>
+            <Section id={about.studies.title} title={about.studies.title}>
+              {about.studies.institutions.map((institution, index) => (
+                <Column
+                  key={`${institution.name}-${index}`}
+                  fillWidth
+                  gap="4"
+                  paddingBottom="l"
+                  borderBottom={
+                    index < about.studies.institutions.length - 1
+                      ? "neutral-alpha-medium"
+                      : undefined
+                  }
+                >
+                  <Text id={institution.name} variant="heading-strong-l">
+                    {institution.name}
+                  </Text>
+                  <Text variant="heading-default-xs" onBackground="neutral-weak">
+                    {institution.description}
+                  </Text>
+                </Column>
+              ))}
+            </Section>
           )}
 
-          <Heading
-            as="h2"
-            id={latestProjectTitle}
-            variant="display-strong-s"
-            marginTop={sectionSpacing}
-            marginBottom="m"
-          >
-            {latestProjectTitle}
-          </Heading>
-          <Column fillWidth gap="m" marginBottom={sectionSpacing}>
-            <ProjectsList range={[1, 1]} marginBottom="0" />
-            <Button
-              href="/projects"
-              label="See more"
-              suffixIcon="arrowRight"
-              variant="secondary"
-              style={{ alignSelf: "flex-start" }}
-            />
-          </Column>
+          <Section id={latestProjectTitle} title={latestProjectTitle}>
+            <Column fillWidth gap="m">
+              <ProjectsList range={[1, 1]} marginBottom="0" />
+              <Button
+                href="/projects"
+                label="See more"
+                suffixIcon="arrowRight"
+                variant="secondary"
+                style={{ alignSelf: "flex-start" }}
+              />
+            </Column>
+          </Section>
 
           {about.technical.display && (
-            <>
-              <Heading
-                as="h2"
-                id={about.technical.title}
-                variant="display-strong-s"
-                marginTop={sectionSpacing}
-                marginBottom="40"
-              >
-                {about.technical.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom={sectionSpacing}>
-                {previewCategories.map((category) => (
-                  <Column key={category.title} fillWidth gap="4">
-                    <Text id={category.title} variant="heading-strong-l">
-                      {category.title}
-                    </Text>
-                    <Flex wrap gap="8">
-                      {category.skills.slice(0, 4).map((skill) => (
-                        <Tag key={skill} size="m" variant={category.variant}>
-                          {skill}
-                        </Tag>
-                      ))}
-                      {category.skills.length > 4 && (
-                        <Tag key="more" size="m" variant={category.variant}>
-                          ...
-                        </Tag>
-                      )}
-                    </Flex>
-                  </Column>
-                ))}
-                <Button
-                  href="/skills"
-                  label="See all skills"
-                  suffixIcon="arrowRight"
-                  variant="secondary"
-                  style={{ alignSelf: "flex-start" }}
-                />
-              </Column>
-            </>
+            <Section id={about.technical.title} title={about.technical.title}>
+              {previewCategories.map((category, index) => (
+                <Column
+                  key={category.title}
+                  fillWidth
+                  gap="4"
+                  paddingBottom="l"
+                  borderBottom={
+                    index < previewCategories.length - 1
+                      ? "neutral-alpha-medium"
+                      : undefined
+                  }
+                >
+                  <Text id={category.title} variant="heading-strong-l">
+                    {category.title}
+                  </Text>
+                  <Flex wrap gap="8">
+                    {category.skills.slice(0, 4).map((skill) => (
+                      <Tag key={skill} size="m" variant={category.variant}>
+                        {skill}
+                      </Tag>
+                    ))}
+                    {category.skills.length > 4 && (
+                      <Tag key="more" size="m" variant={category.variant}>
+                        ...
+                      </Tag>
+                    )}
+                  </Flex>
+                </Column>
+              ))}
+              <Button
+                href="/skills"
+                label="See all skills"
+                suffixIcon="arrowRight"
+                variant="secondary"
+                style={{ alignSelf: "flex-start" }}
+              />
+            </Section>
           )}
         </Column>
       </Flex>
