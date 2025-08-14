@@ -133,12 +133,12 @@ export default function About() {
             horizontal="center"
           >
             <Avatar src={person.avatar} size="xl" />
-            <Flex gap="8" vertical="center">
+            <Flex gap="8" vertical="center" horizontal="center">
               <Icon onBackground="accent-weak" name="globe" />
               <>Washington State</>
             </Flex>
             {person.languages.length > 0 && (
-              <Flex wrap gap="8">
+              <Flex wrap gap="8" horizontal="center">
                 {person.languages.map((language, index) => (
                   <Tag key={index} size="l">
                     {language}

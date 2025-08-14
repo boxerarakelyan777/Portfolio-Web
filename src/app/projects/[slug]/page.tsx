@@ -15,10 +15,13 @@ import { person } from "../../resources/content";
 import { formatDate } from "../../utils/formatDate";
 import ScrollToHash from "@/components/ScrollToHash";
 
-type Props = {
-  // Next 15: params is a Promise (streaming props)
-  params: Promise<{ slug: string }>;
-};
+interface Params {
+  slug: string;
+}
+
+interface Props {
+  params: Promise<Params>;
+}
 
 // Generate static params for SSG
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
@@ -27,19 +30,14 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 }
 
 // Generate metadata per page
-export async function generateMetadata({ params }: Props) {
-  const { slug } = await params; // ✅ await the promised params
+export async function generateMetadata(props: Props) {
+  const { slug } = await props.params;
   const posts = getPosts(["src", "app", "projects", "projects"]);
   const post = posts.find((p) => p.slug === slug);
 
   if (!post) return;
 
-  const {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-  } = post.metadata;
+  const { title, publishedAt: publishedTime, summary: description, image } = post.metadata;
 
   const ogImage = image
     ? `https://${baseURL}${image}`
@@ -66,15 +64,14 @@ export async function generateMetadata({ params }: Props) {
 }
 
 // Main page component
-export default async function Project({ params }: Props) {
-  const { slug } = await params; // ✅ await the promised params
+export default async function Project(props: Props) {
+  const { slug } = await props.params;
   const posts = getPosts(["src", "app", "projects", "projects"]);
   const post = posts.find((p) => p.slug === slug);
 
   if (!post) notFound();
 
-  const avatars =
-    post.metadata.team?.map((member) => ({ src: member.avatar })) ?? [];
+  const avatars = post.metadata.team?.map((member) => ({ src: member.avatar })) ?? [];
 
   return (
     <Column as="section" maxWidth="m" horizontal="center" gap="l">
@@ -91,9 +88,7 @@ export default async function Project({ params }: Props) {
             description: post.metadata.summary,
             image: post.metadata.image
               ? `https://${baseURL}${post.metadata.image}`
-              : `https://${baseURL}/og?title=${encodeURIComponent(
-                  post.metadata.title
-                )}`,
+              : `https://${baseURL}/og?title=${encodeURIComponent(post.metadata.title)}`,
             url: `https://${baseURL}/projects/${post.slug}`,
             author: { "@type": "Person", name: person.name },
           }),
@@ -122,9 +117,7 @@ export default async function Project({ params }: Props) {
       )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
         <Flex gap="12" marginBottom="24" vertical="center">
-          {avatars.length > 0 && (
-            <AvatarGroup reverse avatars={avatars} size="m" />
-          )}
+          {avatars.length > 0 && <AvatarGroup reverse avatars={avatars} size="m" />}
           <Text variant="body-default-s" onBackground="neutral-weak">
             {formatDate(post.metadata.publishedAt)}
           </Text>

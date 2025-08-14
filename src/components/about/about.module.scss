@@ -12,6 +12,10 @@
     top: var(--static-space-64);
 }
 
+.avatar :global(img) {
+    object-position: top;
+}
+
 
 @media (--s) {
     .avatar {
