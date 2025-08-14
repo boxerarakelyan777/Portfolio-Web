@@ -11,7 +11,7 @@ import { person, about, projects } from "@/app/resources/content";
 
 type TimeDisplayProps = {
   timeZone: string;
-  locale?: string; // Optionally allow locale, defaulting to 'en-GB'
+  locale?: string; // Optionally allow locale, defaulting to 'en-US'
 };
 
 const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = "en-US" }) => {
