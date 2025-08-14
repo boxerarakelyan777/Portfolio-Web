@@ -3,7 +3,7 @@ import "@/once-ui/tokens/index.scss";
 
 import classNames from "classnames";
 import { headers } from "next/headers";
-
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Header} from "../components/Header";
 import { Footer } from "../components/Footer";
 
@@ -189,6 +189,7 @@ export default function RootLayout({
       </Column>
 
       </ToastProvider>
+      <GoogleAnalytics gaId="G-54BXN78L1X" />
     </Flex>
   );
 }
