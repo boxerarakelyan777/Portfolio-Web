@@ -11,7 +11,7 @@ interface TableOfContentsProps {
     items: string[];
   }[];
   about: {
-    tableOfContent: {
+    tableOfContents: {
       display: boolean;
       subItems: boolean;
     };
@@ -32,7 +32,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
     }
   };
 
-  if (!about.tableOfContent.display) return null;
+  if (!about.tableOfContents.display) return null;
 
   return (
     <Column
@@ -61,7 +61,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
               <Flex height="1" minWidth="16" background="neutral-strong"></Flex>
               <Text>{section.title}</Text>
             </Flex>
-            {about.tableOfContent.subItems && (
+            {about.tableOfContents.subItems && (
               <>
                 {section.items.map((item, itemIndex) => (
                   <Flex

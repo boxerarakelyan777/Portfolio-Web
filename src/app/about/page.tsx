@@ -74,7 +74,7 @@ export default function About() {
 
   return (
     <Column maxWidth="m">
-      {about.tableOfContent.display && (
+      {about.tableOfContents.display && (
         <Column
           left="0"
           style={{ top: "50%", transform: "translateY(-50%)" }}
