@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--once-ui-color-surface-strong) 0%, var(--once-ui-color-surface-medium) 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

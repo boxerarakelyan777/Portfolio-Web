@@ -1,0 +1,22 @@
+.indicator {
+  transition: opacity 0.3s ease;
+}
+
+.arrow {
+  display: inline-block;
+  margin-left: 0.25rem;
+  animation: bounce 2s infinite;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
