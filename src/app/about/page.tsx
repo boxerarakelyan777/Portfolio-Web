@@ -50,10 +50,10 @@ export async function generateMetadata() {
     },
   };
 }
-
 export default function About() {
   const latestProjectTitle = "Latest project";
   const previewCategories = skillCategories.slice(0, 3);
+  const sectionSpacing = "64";
   const structure = [
     {
       title: about.intro.title,
@@ -129,7 +129,7 @@ export default function About() {
             fillWidth
             minHeight="160"
             vertical="center"
-            marginBottom="32"
+            marginBottom={sectionSpacing}
           >
             <Flex
               fitWidth
@@ -203,17 +203,28 @@ export default function About() {
           </Column>
 
           {about.intro.display && (
-            <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
+            <Column
+              textVariant="body-default-l"
+              fillWidth
+              gap="l"
+              marginBottom={sectionSpacing}
+            >
               {about.intro.description}
             </Column>
           )}
 
           {about.work.display && (
             <>
-              <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
+              <Heading
+                as="h2"
+                id={about.work.title}
+                variant="display-strong-s"
+                marginTop={sectionSpacing}
+                marginBottom="m"
+              >
                 {about.work.title}
               </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
+              <Column fillWidth gap="l" marginBottom={sectionSpacing}>
                 {about.work.experiences.map((experience, index) => (
                   <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
                     <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
@@ -267,10 +278,16 @@ export default function About() {
 
           {about.studies.display && (
             <>
-              <Heading as="h2" id={about.studies.title} variant="display-strong-s" marginBottom="m">
+              <Heading
+                as="h2"
+                id={about.studies.title}
+                variant="display-strong-s"
+                marginTop={sectionSpacing}
+                marginBottom="m"
+              >
                 {about.studies.title}
               </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
+              <Column fillWidth gap="l" marginBottom={sectionSpacing}>
                 {about.studies.institutions.map((institution, index) => (
                   <Column key={`${institution.name}-${index}`} fillWidth gap="4">
                     <Text id={institution.name} variant="heading-strong-l">
@@ -285,10 +302,16 @@ export default function About() {
             </>
           )}
 
-          <Heading as="h2" id={latestProjectTitle} variant="display-strong-s" marginBottom="m">
+          <Heading
+            as="h2"
+            id={latestProjectTitle}
+            variant="display-strong-s"
+            marginTop={sectionSpacing}
+            marginBottom="m"
+          >
             {latestProjectTitle}
           </Heading>
-          <Column fillWidth gap="m" marginBottom="40">
+          <Column fillWidth gap="m" marginBottom={sectionSpacing}>
             <ProjectsList range={[1, 1]} marginBottom="0" />
             <Button
               href="/projects"
@@ -305,11 +328,12 @@ export default function About() {
                 as="h2"
                 id={about.technical.title}
                 variant="display-strong-s"
+                marginTop={sectionSpacing}
                 marginBottom="40"
               >
                 {about.technical.title}
               </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
+              <Column fillWidth gap="l" marginBottom={sectionSpacing}>
                 {previewCategories.map((category) => (
                   <Column key={category.title} fillWidth gap="4">
                     <Text id={category.title} variant="heading-strong-l">
