@@ -21,9 +21,11 @@ export function Projects({ range, marginBottom = "40" }: ProjectsProps) {
     ? sortedProjects.slice(range[0] - 1, range[1] ?? sortedProjects.length)
     : sortedProjects;
 
+  const columns = displayedProjects.length === 1 ? 1 : 2;
+
   return (
     <Grid
-      columns={2}
+      columns={columns}
       tabletColumns={1}
       fillWidth
       gap="xl"
