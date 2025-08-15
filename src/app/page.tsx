@@ -1,13 +1,14 @@
 import React from "react";
 
-import { Flex, Text, Button, Avatar, RevealFx, Column, IconButton } from "../once-ui/components";
+import { Flex, Text, Button, RevealFx, Column, IconButton } from "../once-ui/components";
 import { DynamicHeadline } from "../components/DynamicHeadline";
-import { HomeSnapshot } from "../components/HomeSnapshot";
 import AnimatedBackground from "../components/AnimatedBackground";
-import { ScrollIndicator } from "../components/ScrollIndicator";
+import { ValueTicker } from "../components/ValueTicker";
+import { NavigationTiles } from "../components/NavigationTiles";
+import { CodePlayground } from "../components/CodePlayground";
 
 import { baseURL } from "../app/resources";
-import { home, about, person, social } from "../app/resources/content";
+import { home, person, social } from "../app/resources/content";
 import { IconName } from "@/once-ui/icons";
 
 export async function generateMetadata() {
@@ -64,58 +65,57 @@ export default function Home() {
           }),
         }}
       />
-     <AnimatedBackground>
+      <AnimatedBackground>
         <Column fillWidth paddingY="l" gap="m">
           <Column maxWidth="s">
             <RevealFx translateY="4" fillWidth horizontal="start" paddingBottom="m">
-              <DynamicHeadline words={home.headlines} />
-            </RevealFx>
-            <RevealFx translateY="8" delay={0.2} fillWidth horizontal="start" paddingBottom="m">
-              <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-xl">
-                {home.subline}
+              <Text wrap="balance" variant="display-l">
+                {home.mainHeadline}
               </Text>
             </RevealFx>
-            <RevealFx translateY="12" delay={0.4} horizontal="start">
+            <RevealFx translateY="8" delay={0.2} fillWidth horizontal="start" paddingBottom="m">
+              <DynamicHeadline words={home.roles} />
+            </RevealFx>
+            <RevealFx translateY="12" delay={0.4} fillWidth horizontal="start" paddingBottom="m">
+              <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-xl">
+                {home.subheadline}
+              </Text>
+            </RevealFx>
+            <RevealFx translateY="16" delay={0.6} horizontal="start">
               <Flex gap="16" wrap>
-                <Button
-                  id="about"
-                  data-border="rounded"
-                  href="/about"
-                  variant="secondary"
-                  size="m"
-                  arrowIcon
-                >
-                  <Flex gap="8" vertical="center">
-                    {about.avatar.display && (
-                      <Avatar
-                        style={{ marginLeft: "-0.75rem", marginRight: "0.25rem" }}
-                        src={person.avatar}
-                        size="m"
-                      />
-                    )}
-                    {about.title}
-                  </Flex>
+                <Button data-border="rounded" href="/about" variant="secondary" size="m" arrowIcon>
+                  Learn More About Me
                 </Button>
-                <Button
-                  data-border="rounded"
-                  href={home.resumeLink}
-                  variant="primary"
-                  size="m"
-                  arrowIcon
-                >
-                  Resume
+                <Button data-border="rounded" href="/projects" variant="primary" size="m" arrowIcon>
+                  See My Work
                 </Button>
               </Flex>
             </RevealFx>
           </Column>
         </Column>
       </AnimatedBackground>
-      <RevealFx translateY="12" delay={0.4}>
-        <HomeSnapshot snapshot={home.snapshot} />
+
+      <ValueTicker items={home.valueProps} />
+
+      <NavigationTiles tiles={home.tiles} />
+
+      <CodePlayground />
+
+      <RevealFx translateY="4">
+        <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-l">
+          {home.personalStatement}
+        </Text>
       </RevealFx>
-      <RevealFx translateY="16" delay={0.6}>
-        <ScrollIndicator />
+
+      <RevealFx translateY="8">
+        <Flex gap="16" paddingY="l" wrap horizontal="center">
+          <Text variant="heading-default-l">{home.cta.message}</Text>
+          <Button data-border="rounded" href={home.cta.button.href} variant="primary" size="m" arrowIcon>
+            {home.cta.button.label}
+          </Button>
+        </Flex>
       </RevealFx>
+
       <Flex gap="16" paddingBottom="l" wrap horizontal="center">
         {social.map(
           (item) =>

@@ -1,0 +1,23 @@
+.playground {
+  border: 1px solid var(--global-color-border);
+  border-radius: var(--global-radius-m);
+  padding: 1rem;
+  background: var(--global-color-surface-weak);
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.output {
+  min-height: 2rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  outline: none;
+  resize: none;
+  font-family: monospace;
+}

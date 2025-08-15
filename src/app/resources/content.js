@@ -1,5 +1,3 @@
-import { InlineCode } from "@/once-ui/components";
-
 const person = {
   firstName: "Rudik",
   lastName: "Arakelyan",
@@ -36,20 +34,25 @@ const home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headlines: ["Software Engineer", "AI Enthusiast", "Full-Stack Developer"],
-  resumeLink: "/RudikArakelyanSWEResume.pdf",
-  snapshot: [
-    "Software Engineering student at UW",
-    "Building intuitive user experiences",
-    "Exploring AI and web technologies",
+  mainHeadline: "I Build High-Performance Software That Solves Real Problems",
+  subheadline:
+    "Full-stack engineer specializing in scalable web applications and intuitive user experiences.",
+  roles: ["Software Engineer", "Problem Solver", "UI Craftsman"],
+  valueProps: ["⚡ Fast & Scalable Code", "🎯 User-First Design", "🤝 Clear Communication"],
+  tiles: [
+    { title: "About Me", href: "/about", icon: "🧑‍💻" },
+    { title: "Projects", href: "/projects", icon: "💼" },
+    { title: "Skills", href: "/skills", icon: "🛠️" },
   ],
-  subline: (
-    <>
-      I’m Rudik, a software engineer studying at <InlineCode>UW</InlineCode>, where I craft
-      intuitive
-      <br /> user experiences. After hours, I build my own projects.
-    </>
-  ),
+  personalStatement:
+    "I’m a developer who believes technology should feel effortless — whether it’s building a high-traffic app or crafting the perfect UI interaction. My work blends speed, precision, and creativity.",
+  cta: {
+    message: "Want to build something amazing together?",
+    button: {
+      label: "Let’s Talk",
+      href: "mailto:rudik.arakelyan777@gmail.com",
+    },
+  },
 };
 
 const about = {
