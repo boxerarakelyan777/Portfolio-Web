@@ -50,7 +50,7 @@ const home = {
     message: "Want to build something amazing together?",
     button: {
       label: "Let’s Talk",
-      href: "mailto:rudik.arakelyan777@gmail.com",
+      href: "https://www.linkedin.com/in/rudik-arakelyan/",
     },
   },
 };

@@ -69,7 +69,7 @@ export default function Home() {
         <Column fillWidth paddingY="l" gap="m">
           <Column maxWidth="s">
             <RevealFx translateY="4" fillWidth horizontal="start" paddingBottom="m">
-              <Text wrap="balance" variant="display-l">
+              <Text wrap="balance" variant="display-strong-l">
                 {home.mainHeadline}
               </Text>
             </RevealFx>
@@ -99,7 +99,7 @@ export default function Home() {
 
       <NavigationTiles tiles={home.tiles} />
 
-      <CodePlayground />
+      {/* <CodePlayground /> */}
 
       <RevealFx translateY="4">
         <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-l">
@@ -116,7 +116,7 @@ export default function Home() {
         </Flex>
       </RevealFx>
 
-      <Flex gap="16" paddingBottom="l" wrap horizontal="center">
+      {/* <Flex gap="16" paddingBottom="l" wrap horizontal="center">
         {social.map(
           (item) =>
             item.link && (
@@ -130,7 +130,7 @@ export default function Home() {
               />
             ),
         )}
-      </Flex>
+      </Flex> */}
     </Column>
   );
 }
