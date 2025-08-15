@@ -1,0 +1,31 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.tile {
+  position: relative;
+  border: 1px solid var(--global-color-border);
+  border-radius: var(--global-radius-m);
+  padding: 3rem 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.tile:hover {
+  transform: scale(1.03);
+  background: var(--global-color-surface-hover);
+}
+
+.icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-weight: bold;
+}
